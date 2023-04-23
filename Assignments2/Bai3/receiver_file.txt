@@ -1,0 +1,4 @@
+Ten file: sender_file.txt
+Data
+hello server
+xin chao server
