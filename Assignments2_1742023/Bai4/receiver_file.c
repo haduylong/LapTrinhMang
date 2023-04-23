@@ -31,12 +31,18 @@ int main(){
     // file ghi cua server
     char buf[2048];
     FILE *f = fopen("recv_file.txt", "a");
-
+    int store = 0;
     int ret = recvfrom(receiver, buf, sizeof(buf), 0,
              (struct sockaddr *)&sender_addr, &sender_addr_len);
+    store += fprintf(f,"%s", buf);
+    ret = recvfrom(receiver, buf, sizeof(buf), 0,
+             (struct sockaddr *)&sender_addr1, &sender_addr_len1);
+    store += fprintf(f,"%s", buf);
+    ret = recvfrom(receiver, buf, sizeof(buf), 0,
+             (struct sockaddr *)&sender_addr2, &sender_addr_len2);
+    store += fprintf(f,"%s", buf);
 
     
-    int store = fprintf(f,"%s", buf);
     printf("So byte da ghi vao file: %d\n", store);
 
     //Dong file
