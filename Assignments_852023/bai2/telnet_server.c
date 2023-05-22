@@ -44,7 +44,7 @@ int main()
     }
 
     FILE *f; // file co so du lieu
-    f = fopen("pass.txt", "r");
+    //f = fopen("pass.txt", "r");
 
     struct pollfd fds[64];
     int nfds = 1;
@@ -89,7 +89,7 @@ int main()
         for (int i = 1; i < nfds; i++)
             if (fds[i].revents & POLLIN)
             {
-                ret = recv(fds[i].fd, buf, sizeof(buf), 0);
+                ret = recv(fds[i].fd, buf, sizeof(buf), 0);// nhan message tu client
                 if (ret <= 0)
                 {
                     close(fds[i].fd);
@@ -119,6 +119,7 @@ int main()
                         
                         if (ret == 2)
                         {
+                            f = fopen("pass.txt", "r");
                             if (checkUserPass(buf, f) == 1)
                             {
                                 char *msg = "Dung user and pass. Hay nhap lenh de chuyen tiep.\n";
@@ -135,6 +136,7 @@ int main()
                                 char *msg = "Sai user or pass. Hay nhap lai.\n";
                                 send(client, msg, strlen(msg), 0);
                             }
+                            fclose(f);
                         }
                         else
                         {
@@ -147,18 +149,20 @@ int main()
                         // id: user_ids[j]
                         // data: buf
                         char sendbuf[256];
-
-                        strcat(sendbuf, buf);
-                        strcat(sendbuf, " > out.txt");
-                        system(sendbuf);
+                        if(buf[strlen(buf)-1]=='\n')
+                            buf[strlen(buf)-1]='\0';
+                        // strcat(sendbuf, buf);
+                        strcat(buf, " > out.txt");
+                        system(buf);
+                        
                         // Forward du lieu cho user
-                        send(client, sendbuf, strlen(sendbuf), 0);
+                        send(client, buf, strlen(buf), 0);
                     }
                 }
             }
     }
     
     close(listener);    
-    fclose(f);
+    //fclose(f);
     return 0;
 }
