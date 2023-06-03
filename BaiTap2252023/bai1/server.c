@@ -53,7 +53,7 @@
 // }
 
 //Hàm biến đổi ký tự thường thành ký tự hoa
-char toupper(char charx){
+char toupper_char(char charx){
     if(charx >= 'a' && charx <='z') charx = charx-32;
     return charx;
 }
@@ -70,7 +70,7 @@ void chuanHoa(char a[])
             for(int j=i;j<n-1;j++){
                 a[j] = a[j+1];
             }
-            a[n-1]=NULL;
+            a[n-1]='\0';
             i--;
             n--;
         }
@@ -81,7 +81,7 @@ void chuanHoa(char a[])
 //Xóa khoảng trắng cuối xâu
     for(int i=n-1;i>=0;i--){
         if(a[i]==' '){
-            a[i]=NULL;
+            a[i]='\0';
             n--;
         }
         else break;
@@ -94,7 +94,7 @@ void chuanHoa(char a[])
             for(int j=i;j<n-1;j++){
                 a[j] = a[j+1];
             }
-            a[n-1]=NULL;
+            a[n-1]='\0';
             i--;
             n--;
         }
@@ -104,7 +104,7 @@ void chuanHoa(char a[])
 //    a[0] =  toupper(a[0]); 
 for(int i=0;i<n-1;i++)
 {
-  if(a[i] ==' ' && a[i+1]!=' ') a[i+1] =  toupper(a[i+1]);  //in hoa chữ cái đầu tiên mỗi từ
+  if(a[i] ==' ' && a[i+1]!=' ') a[i+1] =  toupper_char(a[i+1]);  //in hoa chữ cái đầu tiên mỗi từ
 } 
 }
 
@@ -200,8 +200,10 @@ int main()
                     // Forward du lieu cho user
                     char sendbuf[1024];
                         for (int k = 0; k < num_users; k++)
-                            if (users[k] == fds[i].fd)
+                            if (users[k] == fds[i].fd){
                                 send(users[k], buf, strlen(buf), 0);
+                                printf("")
+                            }
                 }
 
             } 
