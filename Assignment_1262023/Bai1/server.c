@@ -134,13 +134,20 @@ int main()
                             FILE *f = fopen(entry->d_name, "rb");
                             fseek(f, 0L, SEEK_END);
                             int size = ftell(entry);
+                            fseek(f, 0, SEEK_SET);
                             char *msg;
                             sprintf(msg, "%s %d\r\n", "OK", size);
-                            
-                            while ((ch = fgetc(fp)) != EOF) 
+                            char sendbuf[4096];
+                            while (1)
                             {
-                                printf("%c", ch);
-                            }   
+                                ret = fread(buf, 1, sizeof(buf), f);
+                                if (ret <= 0)
+                                    break;
+                                send(client, buf, ret, 0);
+                            }
+
+                            fclose(f);
+                            break;  
                         }
                     }
                 }
