@@ -1,0 +1,6 @@
+Mesage: hello server
+Address: 127.0.0.1 Time: 2024/09/18  12:32:13
+Mesage: message 1
+Address: 127.0.0.1 Time: 2024/09/18  12:32:34
+Mesage: message 2
+Address: 127.0.0.1 Time: 2024/09/18  12:32:58
